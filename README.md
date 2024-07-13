@@ -1,9 +1,9 @@
 # Graphene_Nonlinearity
-Set of MATLAB formulas for computing the nonlinearity of graphene, with emphasis on the optical band (e.g., NIR) and the self-acting (Kerr-like) effect.
+MATLAB formulas for computing the nonlinearity of graphene, with emphasis on the optical band (e.g., NIR) and the self-acting (Kerr-like) effect. Currently, the repository only includes a function for the perturbative (instantaneous) third-order nonlinearity, but I mean to add more formulas for the non-perturbative/electrodynamic regime, i.e., when light intensity is higher and free-carrier effects come into play, giving rise to transient response. These formulas can be useful in nonlinear optics and ultrafast science.
 
 ## Perturbative third-order nonlinearity at finite temperature and relaxation
 
-This repository currently includes only the MATLAB implementation of the quantum-derived formulas in [1], for the calculation of the complex-valued nonlinear surface conductivity **sigma(3)** in a perturbative regime. The sigma3 value depends on frequency, chemical potential, finite (nonzero) temperature, and finite relaxation rates; the latter can be different for intraband and interband transitions. The function also computes complex-valued sigma(1) spectra.
+MATLAB implementation of the quantum-derived formulas in [1], for the calculation of the complex-valued nonlinear surface conductivity **sigma(3)** in a perturbative regime. The sigma3 value depends on frequency, chemical potential, finite (nonzero) temperature, and finite relaxation rates; the latter can be different for intraband and interband transitions. The function also computes complex-valued sigma(1) spectra.
 
 The core-fuction is ```sigma3_Graphene_2015JLC.m``` and I've also included a test-script (```script_Repro_2015JLC_Fig4.m```) to showcase the execution and validate its outputs. Executing the core-function (with no arguments) should produce the following figure in several seconds, which reproduces the blue curves in Fig. 3(b) of [1], concerning third-harmonic generation (THG).
 
