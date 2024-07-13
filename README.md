@@ -1,9 +1,11 @@
 # Graphene_Nonlinearity
 Set of MATLAB formulas for computing the nonlinearity of graphene, with emphasis on the optical band (e.g., NIR) and the self-acting (Kerr-like) effect.
 
-# Perturbative third-order nonlinearity at finite temperature and relaxation
+## Perturbative third-order nonlinearity at finite temperature and relaxation
 
-This repository currently includes only a function for computing the perturbative optical nonlinearity of graphene, in terms of its third-order surface conductivity sigma(3), using the quantum-derived formulas in [1]. The core-fuction is ```sigma3_Graphene_2015JLC.m``` and I've also included a test-script (```script_Repro_2015JLC_Fig4.m```) to showcase the execution and validate its outputs. Executing the core-function (with no arguments) should produce the following figure in several seconds, which reproduces the blue curves in Fig. 3(b) of [1], concerning third-harmonic generation (THG).
+This repository currently includes only the MATLAB implementation of the quantum-derived formulas in [1], for the calculation of the complex-valued nonlinear surface conductivity **sigma(3)** in a perturbative regime. The sigma3 value depends on frequency, chemical potential, finite (nonzero) temperature, and finite relaxation rates; the latter can be different for intraband and interband transitions. The function also computes complex-valued sigma(1) spectra.
+
+The core-fuction is ```sigma3_Graphene_2015JLC.m``` and I've also included a test-script (```script_Repro_2015JLC_Fig4.m```) to showcase the execution and validate its outputs. Executing the core-function (with no arguments) should produce the following figure in several seconds, which reproduces the blue curves in Fig. 3(b) of [1], concerning third-harmonic generation (THG).
 
 ![THG](https://github.com/user-attachments/assets/427d4e89-3c08-4d95-95dc-35ab8d46a046)
 
@@ -13,11 +15,15 @@ Executing the test-script should produce the following repro of all four panels 
 
 ![Kerr](https://github.com/user-attachments/assets/6aa20243-7cc8-4e6f-a3f9-64e36c984992)
 
-**Fig.2** : Complex spectra of Kerr sigma3 (xxxx-component) of graphene, for various combinations of temperature (zero and room temperature) and inter/intraband momentum relaxation rates.
+**Fig.2** : Complex spectra of Kerr sigma3 (xxxx-component) of graphene, for various combinations of temperature (zero and room temperature) and inter/intraband momentum relaxation rates. In all cases, graphene's chemical potential (mu) is tuned to 0.3 eV, so note that sharp features appear for frequencies near 0.6 eV, i.e., when mu is tuned near the 'half photon-energy'.
 
-These functions have been developed and tested in MATLAB R2014a.
+These functions have been developed and tested in MATLAB R2014a. I'd appreciate any comment or feedback :)
 
-# Full description of main function ```sigma3_Graphene_2015JLC.m```
+Oh, and if you find these useful, **please cite my WIP papers** (hopefully they can be published soon)
+* [3] "Graphene optical nonlinearity: From the third-order to the non-perturbative electrodynamic regime" (DOI=10.48550/arXiv.2203.09373) and/or
+* [4] "Kerr Microcombs in Integrated Waveguide Ring Resonators enabled by Graphene Nonlinearity" (DOI=10.36227/techrxiv.171072961.17885911) 
+
+### Full description of main function ```sigma3_Graphene_2015JLC.m```
 
 This function uses the JLC formulas in [1], that go one step beyond paper [2] by SAM, allowing nonzero temperature and unequal Gi and Ge (paper [2] treats zero temperature and finite Gi==Ge, i.e., equal intra/inter-band rates. However, I should note that the formulas in [2] are generally more stable (non divergent) and can, of course, be converted to finite (nonzero) temperature.
 
@@ -33,8 +39,7 @@ Paper [1] by JLC also includes simplified formulas for the "pure" cases of THG a
 
 Note that in the model assumed for gapless doped (mu>0) graphene, there's only 8 nonzero elements in the 4th-rank sigma3 tensor, and these 8 only depend on 3 independent terms: {xxyy,xyxy,xyyx}. In all cases it holds that xxxx=xxyy+xyxy+xyyx, plus the symmetry in swapping x<->y. Now, the formulas in the JLC [1] and SAM [2] paper are given for the UNsymmetrized sigma3_dabc(f1,f2,f3); to go to the SYMMETRIZED sigma3_dabc(f1,f2,f3), which is conventionally used in nonlinear optics, an "averaging" over the up-to-six concurrent permutations of the "dabc" coordinates and the corresponding f_123 frequencies is required, e.g., Eq. (14) in [1]:
 
-   d;abc (1,2,3) = 1/6*( d;abc(1,2,3) + d;bca(2,3,1) + d;cab(3,1,2) ...
-                         d;acb(1,3,2) + d;cba(3,2,1) + d;bac(2,1,3) )
+   d;abc (1,2,3) = 1/6*( d;abc(1,2,3) + d;bca(2,3,1) + d;cab(3,1,2) + d;acb(1,3,2) + d;cba(3,2,1) + d;bac(2,1,3) )
 
 Now, to assess the magnitude of each NL effect (Kerr, THG, etc.) from light-graphene interaction, we conventionally evaluate the xxxx component of symmetrized sigma3. To compute that in the THG case (f1=f2=f3), we need only one permutation of the "dabc coord's", as it holds that the SYMMETRIZED xxyy==xyxy==xyyx = 1/3*xxxx. For the Kerr case (-f,f,f) and the PFC cases, we need only three permutations.
 
@@ -45,3 +50,7 @@ Finally, a note on the stability of the finite-temperature spectra using the smo
 [1] JinLuo Cheng (JLC), N. Vermeulen, J. E. Sipe, "Third-order nonlinearity of graphene: Effects of phenomenological relaxation and finite temperature", PRB, 2015. [URL/DOI](https://doi.org/10.1103/PhysRevB.91.235320)
 
 [2] Sergey A. Mikhailov (SAM), "Quantum theory of the third-order nonlinear electrodynamic effects of graphene", PRB, 2016. [URL/DOI](https://doi.org/10.1103/PhysRevB.93.085403)
+
+[3] A. Pitilakis and E.E. Kriezis, "Graphene optical nonlinearity: From the third-order to the non-perturbative electrodynamic regime", arXiv, 2022 [URL/DOI](https://doi.org/10.48550/arXiv.2203.09373) 
+
+[4] A. Pitilakis and E.E. Kriezis, "Kerr Microcombs in Integrated Waveguide Ring Resonators enabled by Graphene Nonlinearity", techRxiv, 2024 [URL/DOI](https://doi.org/10.36227/techrxiv.171072961.17885911) 
